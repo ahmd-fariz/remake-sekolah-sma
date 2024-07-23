@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const KataJelek = db.define("Katajelek", {
   id_katajelek: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   kata: {
     type: DataTypes.STRING,

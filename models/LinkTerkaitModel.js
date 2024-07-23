@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const LinkTerkait = db.define("link_terkait", {
   id_link: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   judul: {
     type: DataTypes.STRING,
@@ -32,7 +33,7 @@ const LinkTerkait = db.define("link_terkait", {
       len: [1, 255],
     },
   },
-  
+
 });
 
 export default LinkTerkait;

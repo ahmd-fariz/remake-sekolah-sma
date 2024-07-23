@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Download = db.define("download", {
   id_download: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   judul: {
     type: DataTypes.STRING,

@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Modul = db.define("modul", {
   id_modul: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   nama_modul: {
     type: DataTypes.STRING,

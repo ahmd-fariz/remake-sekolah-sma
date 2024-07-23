@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const ModYm = db.define("mod_ym", {
   id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   nama: {
     type: DataTypes.STRING,

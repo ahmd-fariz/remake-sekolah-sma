@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Album = db.define("album", {
   id_album: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   jdl_album: {
     type: DataTypes.STRING,

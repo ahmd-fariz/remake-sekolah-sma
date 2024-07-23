@@ -3,11 +3,11 @@ import db from "../config/Database";
 
 const { DataTypes } = Sequelize;
 
-const Comments = db.define("tb_comments", {
+const Comments = db.define("tb_comment", {
   id_komentar: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    allowNull: false,
+    primaryKey: true,
   },
   reply: {
     type: DataTypes.INTEGER,

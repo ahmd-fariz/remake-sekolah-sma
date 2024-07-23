@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Kategori = db.define("kategori", {
   id_kategori: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   nama_kategori: {
     type: DataTypes.STRING,

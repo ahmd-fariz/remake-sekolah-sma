@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Header = db.define("header", {
   id_header: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   judul: {
     type: DataTypes.STRING,

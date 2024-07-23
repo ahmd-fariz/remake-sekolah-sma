@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Banner = db.define("banner", {
   id_banner: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   judul: {
     type: DataTypes.STRING,

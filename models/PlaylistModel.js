@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Playlist = db.define("playlist", {
   id_playlist: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   jdl_playlist: {
     type: DataTypes.STRING,

@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Agenda = db.define("agenda", {
   id_agenda: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   tema: {
     type: DataTypes.STRING,

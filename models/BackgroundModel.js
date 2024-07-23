@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Background = db.define("background", {
   id_background: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   gambar: {
     type: DataTypes.STRING,

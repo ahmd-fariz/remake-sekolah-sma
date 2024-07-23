@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Identitas = db.define("identitas", {
   id_identitas: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   nama_website: {
     type: DataTypes.STRING,

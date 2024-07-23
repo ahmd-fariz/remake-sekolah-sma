@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Logo = db.define("logo", {
   id_logo: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   gambar: {
     type: DataTypes.STRING,

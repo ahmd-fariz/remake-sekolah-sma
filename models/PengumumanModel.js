@@ -6,7 +6,8 @@ const { DataTypes } = Sequelize;
 const Pengumuman = db.define("pengumuman", {
   id_pengumuman: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
   },
   judul: {
     type: DataTypes.STRING,
