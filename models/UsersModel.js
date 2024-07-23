@@ -49,7 +49,7 @@ const Users = db.define("users", {
     // Mendefinisikan kolom url tanpa validasi tambahan
     type: DataTypes.STRING,
   },
-  level: {
+  role: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
@@ -61,10 +61,10 @@ const Users = db.define("users", {
     values: ["Y", "N"],
     allowNull: false,
   },
-  id_session: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+  //   id_session: {
+  //     type: DataTypes.STRING,
+  //     allowNull: true,
+  //   },
 });
 
 export default Users;

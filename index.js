@@ -5,6 +5,7 @@ import FileUpload from "express-fileupload";
 import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import dotenv from "dotenv";
+import UserRoute from "./routes/UserRoute.js";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
 const app = express(); // Membuat aplikasi Express
@@ -15,17 +16,17 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 
-app.use(
-  session({
-    secret: process.env.SESS_SECRET, // Kunci rahasia untuk enkripsi sesi
-    resave: false, // Tidak menyimpan ulang sesi yang tidak berubah
-    saveUninitialized: true, // Menyimpan sesi baru yang belum diinisialisasi
-    store: store, // Menyimpan sesi di database menggunakan Sequelize store
-    cookie: {
-      secure: "auto", // Mengatur cookie agar hanya dikirim melalui HTTPS (otomatis tergantung pada lingkungan)
-    },
-  })
-);
+// app.use(
+//   session({
+//     secret: process.env.SESS_SECRET, // Kunci rahasia untuk enkripsi sesi
+//     resave: false, // Tidak menyimpan ulang sesi yang tidak berubah
+//     saveUninitialized: true, // Menyimpan sesi baru yang belum diinisialisasi
+//     store: store, // Menyimpan sesi di database menggunakan Sequelize store
+//     cookie: {
+//       secure: "auto", // Mengatur cookie agar hanya dikirim melalui HTTPS (otomatis tergantung pada lingkungan)
+//     },
+//   })
+// );
 
 // Konfigurasi middleware CORS
 app.use(
@@ -37,6 +38,7 @@ app.use(
 
 app.use(express.json()); // Middleware untuk parsing JSON
 app.use(FileUpload()); // Middleware untuk menangani upload file
+app.use(UserRoute);
 
 //store.sync(); // Menyinkronkan tabel session dengan database
 

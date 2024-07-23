@@ -1,0 +1,86 @@
+import { Sequelize } from "sequelize";
+import db from "../config/Database";
+
+const { DataTypes } = Sequelize;
+
+const Halaman = db.define("halaman", {
+  id_halaman: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  judul: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [1, 100],
+    },
+  },
+  judul_seo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [1, 100],
+    },
+  },
+  isi_halaman: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  tgl_posting: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  gambar: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [1, 100],
+    },
+  },
+  url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+      len: [1, 100],
+    },
+  },
+  username: {
+    type:DataTypes.STRING,
+    allowNull: false,
+    validate: {
+        notEmpty: true,
+        len: [1, 50],
+      },
+  },
+  dibaca: {
+    type:DataTypes.INTEGER,
+    allowNull: false,
+  },
+  jam: {
+    type:DataTypes.TIME,
+    allowNull: false,
+  },
+  hari: {
+    type:DataTypes.STRING,
+    allowNull: false,
+    validate: {
+        notEmpty: true,
+        len: [1, 20],
+      },
+  },
+  urutan: {
+    type:DataTypes.INTEGER,
+    allowNull: false,
+  },
+  kelompok: {
+    type:DataTypes.INTEGER,
+    allowNull: false,
+  },
+
+});
+
+export default Halaman;
