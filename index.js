@@ -56,7 +56,6 @@ app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
 app.use(AgendaRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
-// store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and Running...."); // Menjalankan server pada port yang ditentukan
