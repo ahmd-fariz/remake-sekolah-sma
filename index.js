@@ -42,6 +42,8 @@ app.use(
 
 app.use(express.json()); // Middleware untuk parsing JSON
 app.use(FileUpload()); // Middleware untuk menangani upload file
+app.use(express.static("public")); // Menyajikan file statis dari folder 'public'
+
 app.use(UserRoute);
 
 //store.sync(); // Menyinkronkan tabel session dengan database

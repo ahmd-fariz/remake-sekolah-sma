@@ -7,7 +7,7 @@ import multer from "multer";
 export const GetUsers = async (req, res) => {
   try {
     const response = await Users.findAll({
-      attributes: ["username", "nama_lengkap", "email", "no_telp"],
+      attributes: ["username", "nama_lengkap", "email", "no_tlp"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -16,58 +16,39 @@ export const GetUsers = async (req, res) => {
 };
 
 export const CreateUser = async (req, res) => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "./public/images");
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname));
-    },
-  });
+  const { username, password, nama_lengkap, email, no_tlp, role, blokir } =
+    req.body;
 
-  const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }, // 1MB
-    fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png/;
-      const extname = fileTypes.test(
-        path.extname(file.originalname).toLowerCase()
-      );
-      const mimetype = fileTypes.test(file.mimetype);
+  const hashPassword = await argon2.hash(password);
 
-      if (mimetype && extname) {
-        return cb(null, true);
-      } else {
-        cb("Error: Images Only!");
-      }
-    },
-  }).single("foto");
+  if (!req.files || !req.files.file) {
+    return res.status(422).json({ msg: "Harus memasukkan foto" });
+  }
 
-  upload(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ msg: err });
-    }
+  const file = req.files.file;
+  const fileSize = file.data.length;
+  const ext = path.extname(file.name);
+  const fileName = file.md5 + ext;
+  const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+  const allowedType = [".png", ".jpg", ".jpeg"];
 
-    const { username, password, nama_lengkap, email, no_telp, role, blokir } =
-      req.body;
-    const file = req.file;
+  if (!allowedType.includes(ext.toLowerCase()))
+    return res.status(422).json({ msg: "Invalid Images" });
 
-    if (!file) {
-      return res.status(400).json({ msg: "No file uploaded" });
-    }
+  if (fileSize > 5000000)
+    return res.status(422).json({ msg: "Image must be less than 5 MB" });
 
-    const fileName = file.filename;
-    const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
-    const filePath = path.join(__dirname, "../public/images", fileName);
+  const uploadPath = `./public/images/${fileName}`;
 
+  file.mv(uploadPath, async (err) => {
+    if (err) return res.status(500).json({ msg: err.message });
     try {
-      const hashedPassword = await argon2.hash(password);
       await Users.create({
         username: username,
-        password: hashedPassword,
+        password: hashPassword,
         nama_lengkap: nama_lengkap,
         email: email,
-        no_telp: no_telp,
+        no_tlp: no_tlp,
         role: role,
         blokir: blokir,
         foto: fileName,
@@ -75,138 +56,105 @@ export const CreateUser = async (req, res) => {
       });
       res.status(201).json({ msg: "User created successfully" });
     } catch (error) {
-      res.status(500).json({ msg: error.message });
+      res.status(400).json({ msg: error.message });
     }
   });
 };
 
 export const UpdateUser = async (req, res) => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "./public/images");
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + path.extname(file.originalname));
+  const user = await Users.findOne({
+    where: {
+      id: req.params.id,
     },
   });
 
-  const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 }, // 1MB
-    fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png/;
-      const extname = fileTypes.test(
-        path.extname(file.originalname).toLowerCase()
-      );
-      const mimetype = fileTypes.test(file.mimetype);
+  if (!user) return res.status(404).json({ msg: "User not found" });
 
-      if (mimetype && extname) {
-        return cb(null, true);
-      } else {
-        cb("Error: Images Only!");
-      }
-    },
-  }).single("foto");
+  const { username, nama_lengkap, email, no_telp, password, role, blokir } =
+    req.body;
+  let hashPassword = user.password;
+  let fileName = user.foto;
 
-  upload(req, res, async (err) => {
-    if (err) {
-      return res.status(400).json({ msg: err });
+  if (req.files) {
+    if (!req.files.file) {
+      return res.status(422).json({ msg: "Harus memasukkan foto" });
     }
 
-    const { username, nama_lengkap, email, no_telp, password } = req.body;
-    const file = req.file;
+    const file = req.files.file;
+    const fileSize = file.data.length;
+    const ext = path.extname(file.name);
+    fileName = file.md5 + ext;
+    const allowedType = [".png", ".jpg", ".jpeg"];
 
-    try {
-      const user = await Users.findOne({
+    if (!allowedType.includes(ext.toLowerCase()))
+      return res.status(422).json({ msg: "Invalid Images" });
+
+    if (fileSize > 5000000)
+      return res.status(422).json({ msg: "Image must be less than 5 MB" });
+
+    const filepath = `./public/images/${user.foto}`;
+    if (fs.existsSync(filepath)) {
+      fs.unlinkSync(filepath);
+    }
+
+    file.mv(`./public/images/${fileName}`, (err) => {
+      if (err) return res.status(500).json({ msg: err.message });
+    });
+  }
+
+  const url = `${req.protocol}://${req.get("host")}/images/${fileName}`;
+
+  if (password && password !== user.password) {
+    hashPassword = await argon2.hash(password);
+  }
+
+  try {
+    await Users.update(
+      {
+        username: username,
+        nama_lengkap: nama_lengkap,
+        email: email,
+        no_telp: no_telp,
+        password: hashPassword,
+        role: role,
+        blokir: blokir,
+        foto: fileName,
+        url,
+      },
+      {
         where: {
-          id: req.params.id,
+          id: user.id,
         },
-      });
-
-      if (!user) {
-        return res.status(404).json({ msg: "User not found" });
       }
-
-      let fileName = user.foto;
-      if (file) {
-        // Hapus foto lama
-        const oldFilePath = path.join(
-          __dirname,
-          "../public/images",
-          path.basename(user.foto)
-        );
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            return res.status(500).json({ msg: "Failed to delete old photo" });
-          }
-        });
-
-        // Set nama file baru
-        fileName = `${req.protocol}://${req.get("host")}/images/${
-          file.filename
-        }`;
-      }
-
-      const hashedPassword = password
-        ? await argon2.hash(password)
-        : user.password;
-
-      await Users.update(
-        {
-          username: username,
-          nama_lengkap: nama_lengkap,
-          email: email,
-          no_telp: no_telp,
-          password: hashedPassword,
-          foto: fileName,
-        },
-        {
-          where: {
-            id: req.params.id,
-          },
-        }
-      );
-
-      res.status(200).json({ msg: "User updated successfully" });
-    } catch (error) {
-      res.status(500).json({ msg: error.message });
-    }
-  });
+    );
+    res.status(201).json({ msg: "User updated successfully" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
 };
 
 export const DeleteUser = async (req, res) => {
   try {
     const user = await Users.findOne({
       where: {
-        id: req.params.id,
+        id: req.params.id, // Mencari pengguna berdasarkan id dari parameter route
       },
     });
 
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+    if (!user) return res.status(404).json({ msg: "User tidak ditemukan" }); // Mengirimkan respon dengan status 404 jika pengguna tidak ditemukan
+
+    // Hapus file gambar dari direktori
+    const filepath = `./public/images/${user.image}`;
+    if (fs.existsSync(filepath)) {
+      fs.unlinkSync(filepath); // Menghapus file jika ada
     }
 
-    const filePath = path.join(
-      __dirname,
-      "../public/images",
-      path.basename(user.foto)
-    );
+    await user.destroy(); // Menghapus data pengguna dari database
 
-    // Hapus file foto
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        return res.status(500).json({ msg: "Failed to delete photo" });
-      }
-    });
-
-    await Users.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    res.status(200).json({ msg: "User deleted successfully" });
+    res
+      .status(200)
+      .json({ msg: `Berhasil Delete Data Dengan Username ${user.name}` }); // Mengirimkan respon dengan status 200 jika penghapusan berhasil
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    res.status(400).json({ msg: error.message }); // Mengirimkan respon dengan status 400 jika terjadi kesalahan saat menghapus data
   }
 };
