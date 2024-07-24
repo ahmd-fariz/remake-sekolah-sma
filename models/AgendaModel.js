@@ -3,8 +3,8 @@ import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
 // agenda
-const Agenda = db.define("agenda", {
-  id_agenda: {
+const Agenda = db.define("agendas", {
+  id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,

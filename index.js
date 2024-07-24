@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import UserRoute from "./routes/UserRoute.js";
 import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
-
+import AgendaRoute from "./routes/AgendaRoute.js";
 // Halo, test
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
@@ -21,9 +21,9 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 app.use(
   session({
@@ -54,6 +54,7 @@ app.use(express.static("public/images/user"));
 app.use(UserRoute);
 app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
+app.use(AgendaRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 // store.sync(); // Menyinkronkan tabel session dengan database
 

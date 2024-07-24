@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  createAgenda,
-  getAllAgendas,
-  getAgendaById,
-  updateAgenda,
-  deleteAgenda,
+  CreateAgenda,
+  GetAllAgenda,
+  GetAgendaById,
+  UpdateAgenda,
+  DeleteAgenda,
 } from "../controller/AgendaController.js";
 
 const router = express.Router();
 
-router.post("/agendas", createAgenda);
-router.get("/agendas", getAllAgendas);
-router.get("/agendas/:id", getAgendaById);
-router.put("/agendas/:id", updateAgenda);
-router.delete("/agendas/:id", deleteAgenda);
+router.post("/agendas", CreateAgenda);
+router.get("/agendas", GetAllAgenda);
+router.get("/agendas/:id", GetAgendaById);
+router.put("/agendas/:id", UpdateAgenda);
+router.delete("/agendas/:id", DeleteAgenda);
 
 export default router;
