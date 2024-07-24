@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  createHalamanStatis,
-  getAllHalamanStatis,
-  getHalamanStatisById,
-  updateHalamanStatis,
-  deleteHalamanStatis,
+  CreateHalamanStatis,
+  GetAllHalamanStatis,
+  GetHalamanStatisById,
+  UpdateHalamanStatis,
+  DeleteHalamanStatis,
 } from "../controller/HalamanStatisController.js";
 
 const router = express.Router();
 
-router.post("/halaman-statis", createHalamanStatis);
-router.get("/halaman-statis", getAllHalamanStatis);
-router.get("/halaman-statis/:id", getHalamanStatisById);
-router.put("/halaman-statis/:id", updateHalamanStatis);
-router.delete("/halaman-statis/:id", deleteHalamanStatis);
+router.post("/halaman-statis", CreateHalamanStatis);
+router.get("/halaman-statis", GetAllHalamanStatis);
+router.get("/halaman-statis/:id", GetHalamanStatisById);
+router.put("/halaman-statis/:id", UpdateHalamanStatis);
+router.delete("/halaman-statis/:id", DeleteHalamanStatis);
 
 export default router;

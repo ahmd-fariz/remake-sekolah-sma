@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize";
-import db from "../config/Database";
+import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
 
 const HalamanStatis = db.define("halaman_statis", {
-  id_halaman: {
+  id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
