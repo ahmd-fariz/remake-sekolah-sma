@@ -12,7 +12,7 @@ import upl_user from "../middleware/user.js";
 router.get("/users", GetUsers);
 // router.post("/createuser", upl_user.single("foto"), CreateUser);
 router.post("/createuser", CreateUser);
-router.patch("/updateuser", UpdateUser);
-router.delete("/deleteuser", DeleteUser);
+router.patch("/updateuser/:id", UpdateUser);
+router.delete("/deleteuser/:id", DeleteUser);
 
 export default router;
