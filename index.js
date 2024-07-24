@@ -6,6 +6,7 @@ import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import dotenv from "dotenv";
 import UserRoute from "./routes/UserRoute.js";
+import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
 const app = express(); // Membuat aplikasi Express
@@ -46,7 +47,7 @@ app.use(express.static("public"));
 app.use(express.static("public/images/user"));
 
 app.use(UserRoute);
-
+app.use(AdministatrosRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {

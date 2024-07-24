@@ -8,11 +8,12 @@ import {
 } from "../controller/UserController.js";
 const router = express.Router();
 import upl_user from "../middleware/user.js";
+import verifyToken from "../middleware/token.js";
 
 
 router.get("/users", GetUsers);
 // router.post("/createuser", upl_user.single("foto"), CreateUser);
-router.post("/createuser", CreateUser);
+router.post("/createuser", CreateUser,);
 router.get("/user/:id", GetUserById);
 router.patch("/updateuser/:id", UpdateUser);
 router.delete("/deleteuser/:id", DeleteUser);
