@@ -7,13 +7,45 @@ import multer from "multer";
 export const GetUsers = async (req, res) => {
   try {
     const response = await Users.findAll({
-      attributes: ["id", "username", "nama_lengkap", "email", "no_tlp", "role"],
+      attributes: [
+        "id",
+        "username",
+        "nama_lengkap",
+        "email",
+        "no_tlp",
+        "role",
+        "url",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
 };
+
+export const GetUserById = async (req, res) => {
+  try {
+    const user = await Users.findByPk(req.params.id, {
+      attributes: [
+        "id",
+        "username",
+        "nama_lengkap",
+        "email",
+        "no_tlp",
+        "role",
+        "url",
+      ],
+    });
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ msg: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
 
 export const CreateUser = async (req, res) => {
   const { username, password, nama_lengkap, email, no_tlp, role, blokir } =
@@ -43,7 +75,7 @@ export const CreateUser = async (req, res) => {
   file.mv(uploadPath, async (err) => {
     if (err) return res.status(500).json({ msg: err.message });
     try {
-      await Users.create({
+      await Users.create({  
         username: username,
         password: hashPassword,
         nama_lengkap: nama_lengkap,
@@ -151,9 +183,7 @@ export const DeleteUser = async (req, res) => {
 
     await user.destroy(); // Menghapus data pengguna dari database
 
-    res
-      .status(200)
-      .json({ msg: `Berhasil Delete` }); // Mengirimkan respon dengan status 200 jika penghapusan berhasil
+    res.status(200).json({ msg: `Berhasil Delete` }); // Mengirimkan respon dengan status 200 jika penghapusan berhasil
   } catch (error) {
     res.status(400).json({ msg: error.message }); // Mengirimkan respon dengan status 400 jika terjadi kesalahan saat menghapus data
   }
