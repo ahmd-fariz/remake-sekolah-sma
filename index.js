@@ -21,9 +21,9 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 app.use(
   session({
@@ -55,7 +55,6 @@ app.use(UserRoute);
 app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
-// store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and Running...."); // Menjalankan server pada port yang ditentukan
