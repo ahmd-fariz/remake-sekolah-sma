@@ -41,7 +41,7 @@ const HalamanStatis = db.define("halaman_statis", {
       len: [1, 100],
     },
   },
-  url: {
+  url_gambar: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {

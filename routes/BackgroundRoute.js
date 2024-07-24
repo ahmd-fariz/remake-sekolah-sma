@@ -5,7 +5,7 @@ import {
   getBackgroundById,
   updateBackground,
   deleteBackground,
-} from "../controllers/BackgroundController.js";
+} from "../controller/BackgroundController.js";
 
 const router = express.Router();
 

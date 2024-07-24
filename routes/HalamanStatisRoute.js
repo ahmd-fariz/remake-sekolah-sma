@@ -5,7 +5,7 @@ import {
   getHalamanStatisById,
   updateHalamanStatis,
   deleteHalamanStatis,
-} from "../controllers/HalamanStatisController.js";
+} from "../controller/HalamanStatisController.js";
 
 const router = express.Router();
 

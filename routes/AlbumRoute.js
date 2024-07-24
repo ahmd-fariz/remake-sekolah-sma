@@ -5,7 +5,7 @@ import {
   getAlbumById,
   updateAlbum,
   deleteAlbum,
-} from "../controllers/AlbumController.js";
+} from "../controller/AlbumController.js";
 
 const router = express.Router();
 

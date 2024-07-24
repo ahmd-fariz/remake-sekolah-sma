@@ -5,7 +5,7 @@ import {
   getDownloadById,
   updateDownload,
   deleteDownload,
-} from "../controllers/DownloadController.js";
+} from "../controller/DownloadController.js";
 
 const router = express.Router();
 

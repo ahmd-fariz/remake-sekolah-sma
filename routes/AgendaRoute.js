@@ -5,7 +5,7 @@ import {
   getAgendaById,
   updateAgenda,
   deleteAgenda,
-} from "../controllers/AgendaController.js";
+} from "../controller/AgendaController.js";
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import express from "express";
-import { getHeaders, getHeaderById, createHeader, updateHeader, deleteHeader } from "../controllers/HeaderController.js";
+import { getHeaders, getHeaderById, createHeader, updateHeader, deleteHeader } from "../controller/HeaderController.js";
 
 const router = express.Router();
 
