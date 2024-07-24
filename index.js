@@ -9,6 +9,7 @@ import UserRoute from "./routes/UserRoute.js";
 import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
 
+// Testing
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
