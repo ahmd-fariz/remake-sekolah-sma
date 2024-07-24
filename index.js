@@ -9,6 +9,7 @@ import UserRoute from "./routes/UserRoute.js";
 import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
 
+import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
 const app = express(); // Membuat aplikasi Express
@@ -23,17 +24,17 @@ const store = new sessionStore({
   await db.sync();
 })();
 
-// app.use(
-//   session({
-//     secret: process.env.SESS_SECRET, // Kunci rahasia untuk enkripsi sesi
-//     resave: false, // Tidak menyimpan ulang sesi yang tidak berubah
-//     saveUninitialized: true, // Menyimpan sesi baru yang belum diinisialisasi
-//     store: store, // Menyimpan sesi di database menggunakan Sequelize store
-//     cookie: {
-//       secure: "auto", // Mengatur cookie agar hanya dikirim melalui HTTPS (otomatis tergantung pada lingkungan)
-//     },
-//   })
-// );
+app.use(
+  session({
+    secret: process.env.SESS_SECRET, // Kunci rahasia untuk enkripsi sesi
+    resave: false, // Tidak menyimpan ulang sesi yang tidak berubah
+    saveUninitialized: true, // Menyimpan sesi baru yang belum diinisialisasi
+    store: store, // Menyimpan sesi di database menggunakan Sequelize store
+    cookie: {
+      secure: "auto", // Mengatur cookie agar hanya dikirim melalui HTTPS (otomatis tergantung pada lingkungan)
+    },
+  })
+);
 
 // Konfigurasi middleware CORS
 app.use(
@@ -45,6 +46,7 @@ app.use(
 
 app.use(express.json()); // Middleware untuk parsing JSON
 app.use(FileUpload()); // Middleware untuk menangani upload file
+app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.static("public/images/user"));
 
@@ -52,6 +54,7 @@ app.use(UserRoute);
 app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
+// store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and Running...."); // Menjalankan server pada port yang ditentukan

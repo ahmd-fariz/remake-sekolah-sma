@@ -1,6 +1,7 @@
 import argon2 from "argon2";
 import Users from "../models/UsersModel.js";
 import jwt from "jsonwebtoken";
+import Blacklist from "../models/BlacklistModel.js";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -28,4 +29,14 @@ export const login = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Terjadi kesalahan pada server" });
   }
+};
+
+export const logout = async (req, res) => {
+  const token = req.cookies.token;
+  if (token) {
+    // Masukkan token ke dalam blacklist
+    await Blacklist.create({ token });
+    res.clearCookie("token"); // Menghapus cookie token
+  }
+  res.status(200).json({ message: "Logout berhasil" }); // Mengirimkan pesan sukses
 };
