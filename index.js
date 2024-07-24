@@ -16,6 +16,10 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 
+// (async () => {
+//   await db.sync();
+// })();
+
 // app.use(
 //   session({
 //     secret: process.env.SESS_SECRET, // Kunci rahasia untuk enkripsi sesi
