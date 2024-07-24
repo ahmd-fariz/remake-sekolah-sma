@@ -3,7 +3,7 @@ import db from "../config/Database";
 
 const { DataTypes } = Sequelize;
 
-const Halaman = db.define("halaman", {
+const HalamanStatis = db.define("halaman_statis", {
   id_halaman: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -84,4 +84,4 @@ const Halaman = db.define("halaman", {
 
 });
 
-export default Halaman;
+export default HalamanStatis;
