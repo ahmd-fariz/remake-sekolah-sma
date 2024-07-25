@@ -8,6 +8,8 @@ import dotenv from "dotenv";
 import UserRoute from "./routes/UserRoute.js";
 import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
+import TamplatesRoute from "./routes/TamplatesRoute.js";
+import CommentRoute from "./routes/CommentRoute.js";
 
 // Halo, test
 import cookieParser from "cookie-parser";
@@ -54,6 +56,8 @@ app.use(express.static("public/images/user"));
 app.use(UserRoute);
 app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
+app.use(TamplatesRoute);
+app.use(CommentRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
