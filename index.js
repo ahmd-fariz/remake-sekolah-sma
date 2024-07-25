@@ -14,7 +14,17 @@ import AgendaRoute from "./routes/AgendaRoute.js";
 import AlbumRoute from "./routes/AlbumRoute.js";
 import BackgroundRoute from "./routes/BackgroundRoute.js";
 import BannerRoute from "./routes/BannerRoute.js";
-// Halo, test
+import DownloadRoute from "./routes/DownloadRoute.js";
+import HeaderRoute from "./routes/HeaderRoute.js";
+import HubungiRoute from "./routes/HubungiRoute.js";
+import IdentitasRoute from "./routes/IdentitasRoute.js";
+import IklanAtasRoute from "./routes/IklanAtasRoute.js";
+import IklanTengahRoute from "./routes/IklanTengahRoute.js";
+import KataJelekRoute from "./routes/KataJelekRoute.js";
+import KategoriRoute from "./routes/KategoriRoute.js";
+import LinkTerkaitRoute from "./routes/LinkTerkaitRoute.js";
+import LogoRoute from "./routes/LogoRoute.js";
+import ModAlamatRoute from "./routes/ModAlamatRoute.js";
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
@@ -56,15 +66,27 @@ app.use(cookieParser());
 app.use(express.static("public"));
 app.use(express.static("public/images/user"));
 
-app.use(UserRoute);
+// Kumpulan route berdasarkan abjad
 app.use(AdministatrosRoute);
-app.use(HalamanStatisRoute);
 app.use(TamplatesRoute);
-app.use(CommentRoute);
 app.use(AgendaRoute);
 app.use(AlbumRoute);
 app.use(BackgroundRoute);
 app.use(BannerRoute);
+app.use(CommentRoute);
+app.use(DownloadRoute); 
+app.use(HalamanStatisRoute);
+app.use(HeaderRoute);
+app.use(HubungiRoute);
+app.use(IdentitasRoute);
+app.use(IklanAtasRoute);
+app.use(IklanTengahRoute);
+app.use(KataJelekRoute);
+app.use(KategoriRoute);
+app.use(LinkTerkaitRoute);
+app.use(LogoRoute);
+app.use(ModAlamatRoute);
+app.use(UserRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {

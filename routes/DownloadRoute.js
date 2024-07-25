@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  createDownload,
-  getAllDownloads,
-  getDownloadById,
-  updateDownload,
-  deleteDownload,
+  CreateDownload,
+  GetAllDownloads,
+  GetDownloadById,
+  UpdateDownload,
+  DeleteDownload,
 } from "../controller/DownloadController.js";
 
 const router = express.Router();
 
-router.post("/downloads", createDownload);
-router.get("/downloads", getAllDownloads);
-router.get("/downloads/:id", getDownloadById);
-router.put("/downloads/:id", updateDownload);
-router.delete("/downloads/:id", deleteDownload);
+router.post("/download", CreateDownload);
+router.get("/download", GetAllDownloads);
+router.get("/download/:id", GetDownloadById);
+router.put("/download/:id", UpdateDownload);
+router.delete("/download/:id", DeleteDownload);
 
 export default router;

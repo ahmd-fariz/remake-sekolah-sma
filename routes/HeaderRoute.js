@@ -1,12 +1,18 @@
 import express from "express";
-import { getHeaders, getHeaderById, createHeader, updateHeader, deleteHeader } from "../controller/HeaderController.js";
+import {
+  CreateHeader,
+  GetAllHeaders,
+  GetHeaderById,
+  UpdateHeader,
+  DeleteHeader,
+} from "../controller/HeaderController.js";
 
 const router = express.Router();
 
-router.get("/headers", getHeaders);
-router.get("/headers/:id", getHeaderById);
-router.post("/headers", createHeader);
-router.put("/headers/:id", updateHeader);
-router.delete("/headers/:id", deleteHeader);
+router.post("/header", CreateHeader);
+router.get("/header", GetAllHeaders);
+router.get("/header/:id", GetHeaderById);
+router.put("/header/:id", UpdateHeader);
+router.delete("/header/:id", DeleteHeader);
 
 export default router;

@@ -40,7 +40,15 @@ const IklanAtas = db.define(
       allowNull: false,
       validate: {
         notEmpty: true,
-        len: [1, 100],
+        len: [1, 255],
+      },
+    },
+    url_gambar: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [1, 255],
       },
     },
     tgl_posting: {

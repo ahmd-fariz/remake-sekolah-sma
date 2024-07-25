@@ -1,10 +1,10 @@
-import Header from "../models/HeaderModel.js";
+import IklanAtas from "../models/IklanAtasModel.js";
 import path from "path";
 import fs from "fs";
 
-// Create a new header
-export const CreateHeader = async (req, res) => {
-  const { judul, url, tgl_posting } = req.body;
+// Create a new iklan atas
+export const CreateIklanAtas = async (req, res) => {
+  const { judul, username, url, tgl_posting } = req.body;
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -28,25 +28,26 @@ export const CreateHeader = async (req, res) => {
   file.mv(uploadPath, async (err) => {
     if (err) return res.status(500).json({ msg: err.message });
     try {
-      await Header.create({
+      await IklanAtas.create({
         judul,
+        username,
         url,
         gambar: fileName,
         url_gambar,
         tgl_posting,
       });
-      res.status(201).json({ msg: "Header berhasil dibuat" });
+      res.status(201).json({ msg: "Iklan Atas berhasil dibuat" });
     } catch (error) {
       res.status(400).json({ msg: error.message });
     }
   });
 };
 
-// Get all headers
-export const GetAllHeaders = async (req, res) => {
+// Get all iklan atas
+export const GetAllIklanAtas = async (req, res) => {
   try {
-    const response = await Header.findAll({
-      attributes: ["id", "judul", "url", "gambar", "url_gambar", "tgl_posting"],
+    const response = await IklanAtas.findAll({
+      attributes: ["id", "judul", "username", "url", "gambar", "url_gambar", "tgl_posting"],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -54,32 +55,32 @@ export const GetAllHeaders = async (req, res) => {
   }
 };
 
-// Get a single header by ID
-export const GetHeaderById = async (req, res) => {
+// Get a single iklan atas by ID
+export const GetIklanAtasById = async (req, res) => {
   try {
-    const header = await Header.findByPk(req.params.id);
-    if (header) {
-      res.status(200).json(header);
+    const iklanAtas = await IklanAtas.findByPk(req.params.id);
+    if (iklanAtas) {
+      res.status(200).json(iklanAtas);
     } else {
-      res.status(404).json({ message: "Header not found" });
+      res.status(404).json({ message: "Iklan Atas tidak ditemukan" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// Update a header by ID
-export const UpdateHeader = async (req, res) => {
-  const header = await Header.findOne({
+// Update a iklan atas by ID
+export const UpdateIklanAtas = async (req, res) => {
+  const iklanAtas = await IklanAtas.findOne({
     where: {
       id: req.params.id,
     },
   });
 
-  if (!header) return res.status(404).json({ msg: "Header tidak ditemukan" });
+  if (!iklanAtas) return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
 
-  const { judul, url, tgl_posting } = req.body;
-  let fileName = header.gambar;
+  const { judul, username, url, tgl_posting } = req.body;
+  let fileName = iklanAtas.gambar;
 
   if (req.files) {
     if (!req.files.file) {
@@ -98,7 +99,7 @@ export const UpdateHeader = async (req, res) => {
     if (fileSize > 5000000)
       return res.status(422).json({ msg: "Image must be less than 5 MB" });
 
-    const filepath = `./public/images/${header.gambar}`;
+    const filepath = `./public/images/${iklanAtas.gambar}`;
     if (fs.existsSync(filepath)) {
       fs.unlinkSync(filepath);
     }
@@ -111,9 +112,10 @@ export const UpdateHeader = async (req, res) => {
   const url_gambar = `${req.protocol}://${req.get("host")}/images/${fileName}`;
 
   try {
-    await Header.update(
+    await IklanAtas.update(
       {
         judul,
+        username,
         url,
         gambar: fileName,
         url_gambar,
@@ -121,35 +123,35 @@ export const UpdateHeader = async (req, res) => {
       },
       {
         where: {
-          id: header.id,
+          id: iklanAtas.id,
         },
       }
     );
-    res.status(201).json({ msg: "Header berhasil diperbarui" });
+    res.status(201).json({ msg: "Iklan Atas berhasil diperbarui" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
 
-// Delete a header by ID
-export const DeleteHeader = async (req, res) => {
+// Delete a iklan atas by ID
+export const DeleteIklanAtas = async (req, res) => {
   try {
-    const header = await Header.findOne({
+    const iklanAtas = await IklanAtas.findOne({
       where: {
         id: req.params.id,
       },
     });
 
-    if (!header) return res.status(404).json({ msg: "Header tidak ditemukan" });
+    if (!iklanAtas) return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
 
-    const filepath = `./public/images/${header.gambar}`;
+    const filepath = `./public/images/${iklanAtas.gambar}`;
     if (fs.existsSync(filepath)) {
       fs.unlinkSync(filepath);
     }
 
-    await header.destroy();
+    await iklanAtas.destroy();
 
-    res.status(200).json({ msg: "Header berhasil dihapus" });
+    res.status(200).json({ msg: "Iklan Atas berhasil dihapus" });
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }

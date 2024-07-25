@@ -43,6 +43,14 @@ const IklanTengah = db.define(
         len: [1, 100],
       },
     },
+    url_gambar: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [1, 100],
+      },
+    },
     tgl_posting: {
       type: DataTypes.DATE,
       allowNull: false,
