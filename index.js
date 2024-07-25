@@ -11,6 +11,7 @@ import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
 import TamplatesRoute from "./routes/TamplatesRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
 
+import AgendaRoute from "./routes/AgendaRoute.js";
 // Halo, test
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
@@ -58,6 +59,7 @@ app.use(AdministatrosRoute);
 app.use(HalamanStatisRoute);
 app.use(TamplatesRoute);
 app.use(CommentRoute);
+app.use(AgendaRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
