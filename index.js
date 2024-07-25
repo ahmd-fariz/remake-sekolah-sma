@@ -24,7 +24,13 @@ import KataJelekRoute from "./routes/KataJelekRoute.js";
 import KategoriRoute from "./routes/KategoriRoute.js";
 import LinkTerkaitRoute from "./routes/LinkTerkaitRoute.js";
 import LogoRoute from "./routes/LogoRoute.js";
+import ModulRoute from "./routes/ModulRoute.js";
 import ModAlamatRoute from "./routes/ModAlamatRoute.js";
+import ModYmRoute from "./routes/ModYmRoute.js";
+import PasangIklanRoute from "./routes/PasangIklanRoute.js";
+import PengumumanRoute from "./routes/PengumumanRoute.js";
+import PlaylistRoute from "./routes/PlaylistRoute.js";
+import PollingRoute from "./routes/PollingRoute.js";
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
@@ -85,7 +91,13 @@ app.use(KataJelekRoute);
 app.use(KategoriRoute);
 app.use(LinkTerkaitRoute);
 app.use(LogoRoute);
+app.use(ModulRoute);
 app.use(ModAlamatRoute);
+app.use(ModYmRoute);
+app.use(PasangIklanRoute);
+app.use(PengumumanRoute);
+app.use(PlaylistRoute);
+app.use(PollingRoute);
 app.use(UserRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 

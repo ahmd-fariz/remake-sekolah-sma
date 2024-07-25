@@ -28,7 +28,7 @@ const ModYm = db.define(
       },
     },
 
-    gambar: {
+    ym_icon: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

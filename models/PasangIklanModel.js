@@ -4,7 +4,7 @@ import db from "../config/Database.js";
 const { DataTypes } = Sequelize;
 
 const PasangIklan = db.define(
-  "pasangiklan",
+  "pasang_iklan",
   {
     id: {
       type: DataTypes.INTEGER,

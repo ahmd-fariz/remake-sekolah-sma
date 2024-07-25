@@ -31,6 +31,14 @@ const Pengumuman = db.define(
         len: [1, 255],
       },
     },
+    url_download: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        len: [1, 255],
+      },
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,

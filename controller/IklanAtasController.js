@@ -49,7 +49,15 @@ export const CreateIklanAtas = async (req, res) => {
 export const GetAllIklanAtas = async (req, res) => {
   try {
     const response = await IklanAtas.findAll({
-      attributes: ["id", "judul", "username", "url", "gambar", "url_gambar", "tgl_posting"],
+      attributes: [
+        "id",
+        "judul",
+        "username",
+        "url",
+        "gambar",
+        "url_gambar",
+        "tgl_posting",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -79,12 +87,13 @@ export const UpdateIklanAtas = async (req, res) => {
     },
   });
 
-  if (!iklanAtas) return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
+  if (!iklanAtas)
+    return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
 
   const { judul, username, url } = req.body;
-  
+
   const tgl_posting = new Date().toISOString().split("T")[0];
-  
+
   let fileName = iklanAtas.gambar;
 
   if (req.files) {
@@ -147,7 +156,8 @@ export const DeleteIklanAtas = async (req, res) => {
       },
     });
 
-    if (!iklanAtas) return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
+    if (!iklanAtas)
+      return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
 
     const filepath = `./public/images/${iklanAtas.gambar}`;
     if (fs.existsSync(filepath)) {

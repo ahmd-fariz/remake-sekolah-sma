@@ -27,14 +27,6 @@ const Playlist = db.define(
         len: [1, 50],
       },
     },
-    playlist_seo: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [1, 100],
-      },
-    },
     gbr_playlist: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -43,8 +35,8 @@ const Playlist = db.define(
         len: [1, 100],
       },
     },
-    url: {
-      type: DataTypes.ENUM,
+    url_gambar: {
+      type: DataTypes.STRING,
       values: ["Y", "N"],
       allowNull: false,
       validate: {

@@ -13,9 +13,9 @@ import { checkBlacklist } from "../middleware/Blacklist.js";
 
 router.get("/users", verifyToken, checkBlacklist, GetUsers);
 // router.post("/createuser", upl_user.single("foto"), CreateUser);
-router.post("/createuser", verifyToken, checkBlacklist, CreateUser);
+router.post("/createuser", CreateUser);
 router.get("/user/:id", verifyToken, checkBlacklist, GetUserById);
 router.patch("/updateuser/:id", verifyToken, checkBlacklist, UpdateUser);
 router.delete("/deleteuser/:id", verifyToken, checkBlacklist, DeleteUser);
-
+// verifyToken, checkBlacklist,
 export default router;
