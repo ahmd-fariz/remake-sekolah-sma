@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  createBanner,
-  getAllBanners,
-  getBannerById,
-  updateBanner,
-  deleteBanner,
+  CreateBanner,
+  GetAllBanners,
+  GetBannerById,
+  UpdateBanner,
+  DeleteBanner,
 } from "../controller/BannerController.js";
 
 const router = express.Router();
 
-router.post("/banners", createBanner);
-router.get("/banners", getAllBanners);
-router.get("/banners/:id", getBannerById);
-router.put("/banners/:id", updateBanner);
-router.delete("/banners/:id", deleteBanner);
+router.post("/banner", CreateBanner);
+router.get("/banner", GetAllBanners);
+router.get("/banner/:id", GetBannerById);
+router.put("/banner/:id", UpdateBanner);
+router.delete("/banner/:id", DeleteBanner);
 
 export default router;

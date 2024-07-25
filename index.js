@@ -10,9 +10,10 @@ import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
 import TamplatesRoute from "./routes/TamplatesRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
-
 import AgendaRoute from "./routes/AgendaRoute.js";
 import AlbumRoute from "./routes/AlbumRoute.js";
+import BackgroundRoute from "./routes/BackgroundRoute.js";
+import BannerRoute from "./routes/BannerRoute.js";
 // Halo, test
 import cookieParser from "cookie-parser";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
@@ -24,7 +25,7 @@ const sessionStore = SequelizeStore(session.Store); // Mengonfigurasi session st
 const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
-
+// Jangan lupa kalo ga dipake dikasih komentar, ini buat bikin tabel
 (async () => {
   await db.sync();
 })(); 
@@ -62,6 +63,8 @@ app.use(TamplatesRoute);
 app.use(CommentRoute);
 app.use(AgendaRoute);
 app.use(AlbumRoute);
+app.use(BackgroundRoute);
+app.use(BannerRoute);
 //store.sync(); // Menyinkronkan tabel session dengan database
 
 app.listen(process.env.APP_PORT, () => {
