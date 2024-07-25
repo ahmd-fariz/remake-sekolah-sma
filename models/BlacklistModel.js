@@ -22,6 +22,7 @@ const Blacklist = db.define(
   {
     timestamps: false,
     tableName: "blacklist",
+    freezeTableName: true,
   }
 );
 

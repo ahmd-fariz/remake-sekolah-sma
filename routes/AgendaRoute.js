@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.post("/agendas", CreateAgenda);
-router.get("/agendas", GetAllAgenda);
-router.get("/agendas/:id", GetAgendaById);
-router.put("/agendas/:id", UpdateAgenda);
-router.delete("/agendas/:id", DeleteAgenda);
+router.post("/agenda", CreateAgenda);
+router.get("/agenda", GetAllAgenda);
+router.get("/agenda/:id", GetAgendaById);
+router.put("/agenda/:id", UpdateAgenda);
+router.delete("/agenda/:id", DeleteAgenda);
 
 export default router;

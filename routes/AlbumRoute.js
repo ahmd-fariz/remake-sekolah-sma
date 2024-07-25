@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.post("/albums", createAlbum);
-router.get("/albums", getAllAlbums);
-router.get("/albums/:id", getAlbumById);
-router.put("/albums/:id", updateAlbum);
-router.delete("/albums/:id", deleteAlbum);
+router.post("/album", createAlbum);
+router.get("/album", getAllAlbums);
+router.get("/album/:id", getAlbumById);
+router.put("/album/:id", updateAlbum);
+router.delete("/album/:id", deleteAlbum);
 
 export default router;

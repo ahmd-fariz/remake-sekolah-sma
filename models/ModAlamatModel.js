@@ -3,17 +3,22 @@ import db from "../config/Database.js";
 
 const { DataTypes } = Sequelize;
 
-const Alamat = db.define("alamat", {
-  id_alamat: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+const Alamat = db.define(
+  "alamat",
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    alamat: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
   },
-  alamat: {
-    type: DataTypes.TEXT,
-    allowNull: false,
-  },
-
-});
+  {
+    freezeTableName: true,
+  }
+);
 
 export default Alamat;
