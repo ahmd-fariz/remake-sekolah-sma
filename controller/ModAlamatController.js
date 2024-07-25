@@ -42,15 +42,10 @@ export const GetModAlamatById = async (req, res) => {
 
 // Update a Alamat by ID
 export const UpdateModAlamat = async (req, res) => {
-  return res.status(400).json({ msg: error.message });
-  const Alamat = await ModAlamat.findByPk({
-    where: {
-      id: req.params.id,
-    },
-  });
-
+  const Alamat = await ModAlamat.findByPk(req.params.id);
+  
   if (!Alamat) return res.status(404).json({ msg: "Alamat tidak ditemukan" });
-
+  
   const { alamat } = req.body;
 
   try {
@@ -60,7 +55,7 @@ export const UpdateModAlamat = async (req, res) => {
       },
       {
         where: {
-          id: ModAlamat.id,
+          id: req.params.id,
         },
       }
     );
@@ -73,15 +68,11 @@ export const UpdateModAlamat = async (req, res) => {
 // Delete a Alamat by ID
 export const DeleteModAlamat = async (req, res) => {
   try {
-    const ModAlamat = await ModAlamat.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
+    const Alamat = await ModAlamat.findByPk(req.params.id);
 
-    if (!ModAlamat) return res.status(404).json({ msg: "Alamat tidak ditemukan" });
+    if (!Alamat) return res.status(404).json({ msg: "Alamat tidak ditemukan" });
 
-    await ModAlamat.destroy();
+    await Alamat.destroy();
 
     res.status(200).json({ msg: "Alamat berhasil dihapus" });
   } catch (error) {
