@@ -4,20 +4,18 @@ import fs from "fs";
 
 // Create a new agenda
 export const CreateAgenda = async (req, res) => {
-  const {
-    tema,
-    tema_seo,
-    isi_agenda,
-    tempat,
-    pengirim,
-    jam,
-    dibaca,
-    username,
-  } = req.body;
+  const { tema, tema_seo, isi_agenda, tempat, pengirim, dibaca, username } =
+    req.body;
 
   const tgl_mulai = new Date().toISOString().split("T")[0];
   const tgl_posting = new Date().toISOString().split("T")[0];
   const tgl_selesai = new Date().toISOString().split("T")[0];
+  const jam = new Date()
+    .toTimeString()
+    .split(" ")[0]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -115,19 +113,19 @@ export const UpdateAgenda = async (req, res) => {
   if (!agenda) return res.status(404).json({ msg: "Agenda tidak ditemukan" });
 
   // Mengambil data dari body request
-  const {
-    tema,
-    tema_seo,
-    isi_agenda,
-    tempat,
-    pengirim,
-    tgl_mulai,
-    tgl_selesai,
-    tgl_posting,
-    jam,
-    dibaca,
-    username,
-  } = req.body;
+  const { tema, tema_seo, isi_agenda, tempat, pengirim, dibaca, username } =
+    req.body;
+
+  const tgl_mulai = new Date().toISOString().split("T")[0];
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  const tgl_selesai = new Date().toISOString().split("T")[0];
+  const jam = new Date()
+    .toTimeString()
+    .split(" ")[0]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
+
   let fileName = agenda.gambar; // Inisialisasi nama file dengan gambar yang ada
 
   if (req.files) {

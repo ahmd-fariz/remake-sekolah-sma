@@ -2,7 +2,14 @@ import Hubungi from "../models/HubungiModel.js";
 
 // Create a new hubungi
 export const CreateHubungi = async (req, res) => {
-  const { nama, email, subjek, pesan, tanggal, jam, dibaca } = req.body;
+  const { nama, email, subjek, pesan, dibaca } = req.body;
+  const tanggal = new Date().toISOString().split("T")[0];
+  const jam = new Date()
+    .toTimeString()
+    .split(" ")[0]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
 
   try {
     await Hubungi.create({
@@ -24,7 +31,16 @@ export const CreateHubungi = async (req, res) => {
 export const GetAllHubungi = async (req, res) => {
   try {
     const response = await Hubungi.findAll({
-      attributes: ["id", "nama", "email", "subjek", "pesan", "tanggal", "jam", "dibaca"],
+      attributes: [
+        "id",
+        "nama",
+        "email",
+        "subjek",
+        "pesan",
+        "tanggal",
+        "jam",
+        "dibaca",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {

@@ -4,7 +4,9 @@ import fs from "fs";
 
 // Create a new download
 export const CreateDownload = async (req, res) => {
-  const { judul, nama_file, url, tgl_posting, hits } = req.body;
+  const { judul, nama_file, url, hits } = req.body;
+  
+  const tgl_posting = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan file" });
@@ -78,7 +80,8 @@ export const UpdateDownload = async (req, res) => {
 
   if (!download) return res.status(404).json({ msg: "Download tidak ditemukan" });
 
-  const { judul, nama_file, url, tgl_posting, hits } = req.body;
+  const { judul, nama_file, url, hits } = req.body;
+  const tgl_posting = new Date().toISOString().split("T")[0];
   let fileName = download.nama_file;
 
   if (req.files) {

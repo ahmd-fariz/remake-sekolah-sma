@@ -2,7 +2,9 @@ import Kategori from "../models/KategoriModel.js";
 
 // Create a new kategori
 export const CreateKategori = async (req, res) => {
-  const { nama_kategori, username, kategori_seo, aktif, sidebar, tanggal } = req.body;
+  const { nama_kategori, username, kategori_seo, aktif, sidebar } = req.body;
+
+  const tanggal = new Date().toISOString().split("T")[0];
 
   try {
     await Kategori.create({
@@ -55,7 +57,9 @@ export const UpdateKategori = async (req, res) => {
 
   if (!kategori) return res.status(404).json({ msg: "Kategori tidak ditemukan" });
 
-  const { nama_kategori, username, kategori_seo, aktif, sidebar, tanggal } = req.body;
+  const { nama_kategori, username, kategori_seo, aktif, sidebar } = req.body;
+
+  const tanggal = new Date().toISOString().split("T")[0];
 
   try {
     await Kategori.update(

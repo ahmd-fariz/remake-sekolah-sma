@@ -8,13 +8,14 @@ export const createAlbum = async (req, res) => {
     jdl_album,
     album_seo,
     keterangan,
-    tgl_posting,
     jam,
     hari,
     username,
     aktif,
-    hits_album
+    hits_album,
   } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -49,7 +50,7 @@ export const createAlbum = async (req, res) => {
         hari,
         username,
         aktif,
-        hits_album
+        hits_album,
       });
       res.status(201).json({ msg: "Album berhasil dibuat" });
     } catch (error) {
@@ -62,7 +63,19 @@ export const createAlbum = async (req, res) => {
 export const getAllAlbums = async (req, res) => {
   try {
     const response = await Album.findAll({
-      attributes: ["jdl_album", "album_seo", "keterangan", "gbr_album", "url", "tgl_posting", "jam", "hari", "username", "aktif", "hits_album"],
+      attributes: [
+        "jdl_album",
+        "album_seo",
+        "keterangan",
+        "gbr_album",
+        "url",
+        "tgl_posting",
+        "jam",
+        "hari",
+        "username",
+        "aktif",
+        "hits_album",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -94,7 +107,17 @@ export const updateAlbum = async (req, res) => {
 
   if (!album) return res.status(404).json({ msg: "Album tidak ditemukan" });
 
-  const { jdl_album, album_seo, keterangan, tgl_posting, jam, hari, username, aktif, hits_album } = req.body;
+  const {
+    jdl_album,
+    album_seo,
+    keterangan,
+    jam,
+    hari,
+    username,
+    aktif,
+    hits_album,
+  } = req.body;
+  const tgl_posting = new Date().toISOString().split("T")[0];
   let fileName = album.gbr_album;
 
   if (req.files) {
@@ -139,7 +162,7 @@ export const updateAlbum = async (req, res) => {
         hari,
         username,
         aktif,
-        hits_album
+        hits_album,
       },
       {
         where: {

@@ -10,14 +10,20 @@ export const CreateHalamanStatis = async (req, res) => {
     judul,
     judul_seo,
     isi_halaman,
-    tgl_posting,
     username,
     dibaca,
-    jam,
     hari,
     urutan,
-    kelompok
+    kelompok,
   } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  const jam = new Date()
+    .toTimeString()
+    .split(" ")[0]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -53,7 +59,7 @@ export const CreateHalamanStatis = async (req, res) => {
         jam: jam,
         hari: hari,
         urutan: urutan,
-        kelompok: kelompok
+        kelompok: kelompok,
       });
       res.status(201).json({ msg: "Halaman statis berhasil dibuat" });
     } catch (error) {
@@ -66,7 +72,20 @@ export const CreateHalamanStatis = async (req, res) => {
 export const GetAllHalamanStatis = async (req, res) => {
   try {
     const response = await HalamanStatis.findAll({
-      attributes: ["judul", "judul_seo", "isi_halaman", "tgl_posting", "gambar", "url_gambar", "username", "dibaca", "jam", "hari", "urutan", "kelompok"],
+      attributes: [
+        "judul",
+        "judul_seo",
+        "isi_halaman",
+        "tgl_posting",
+        "gambar",
+        "url_gambar",
+        "username",
+        "dibaca",
+        "jam",
+        "hari",
+        "urutan",
+        "kelompok",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -97,10 +116,29 @@ export const UpdateHalamanStatis = async (req, res) => {
     },
   });
 
-  if (!halamanStatis) return res.status(404).json({ msg: "Halaman Statis tidak ditemukan" });
+  if (!halamanStatis)
+    return res.status(404).json({ msg: "Halaman Statis tidak ditemukan" });
 
   // Mengambil data dari body request
-  const { judul, judul_seo, isi_halaman, tgl_posting, username, dibaca, jam, hari, urutan, kelompok } = req.body;
+  const {
+    judul,
+    judul_seo,
+    isi_halaman,
+    username,
+    dibaca,
+    hari,
+    urutan,
+    kelompok,
+  } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  const jam = new Date()
+    .toTimeString()
+    .split(" ")[0]
+    .split(":")
+    .slice(0, 2)
+    .join(":");
+
   let fileName = halamanStatis.gambar; // Inisialisasi nama file dengan gambar yang ada
 
   if (req.files) {
@@ -150,7 +188,7 @@ export const UpdateHalamanStatis = async (req, res) => {
         jam: jam,
         hari: hari,
         urutan: urutan,
-        kelompok: kelompok
+        kelompok: kelompok,
       },
       {
         where: {
@@ -174,7 +212,8 @@ export const DeleteHalamanStatis = async (req, res) => {
       },
     });
 
-    if (!halamanStatis) return res.status(404).json({ msg: "Halaman Statis tidak ditemukan" });
+    if (!halamanStatis)
+      return res.status(404).json({ msg: "Halaman Statis tidak ditemukan" });
 
     // Hapus file gambar dari direktori
     const filepath = `./public/images/${halamanStatis.gambar}`;

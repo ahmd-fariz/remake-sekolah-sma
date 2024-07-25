@@ -4,7 +4,8 @@ import fs from "fs";
 
 // Create a new header
 export const CreateHeader = async (req, res) => {
-  const { judul, url, tgl_posting } = req.body;
+  const { judul, url } = req.body;
+  const tgl_posting = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -78,7 +79,9 @@ export const UpdateHeader = async (req, res) => {
 
   if (!header) return res.status(404).json({ msg: "Header tidak ditemukan" });
 
-  const { judul, url, tgl_posting } = req.body;
+  const { judul, url } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
   let fileName = header.gambar;
 
   if (req.files) {

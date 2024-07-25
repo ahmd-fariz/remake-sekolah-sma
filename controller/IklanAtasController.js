@@ -4,7 +4,9 @@ import fs from "fs";
 
 // Create a new iklan atas
 export const CreateIklanAtas = async (req, res) => {
-  const { judul, username, url, tgl_posting } = req.body;
+  const { judul, username, url } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -79,7 +81,10 @@ export const UpdateIklanAtas = async (req, res) => {
 
   if (!iklanAtas) return res.status(404).json({ msg: "Iklan Atas tidak ditemukan" });
 
-  const { judul, username, url, tgl_posting } = req.body;
+  const { judul, username, url } = req.body;
+  
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  
   let fileName = iklanAtas.gambar;
 
   if (req.files) {

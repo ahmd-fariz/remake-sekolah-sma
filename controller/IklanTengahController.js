@@ -4,7 +4,9 @@ import fs from "fs";
 
 // Create a new iklan tengah
 export const CreateIklanTengah = async (req, res) => {
-  const { judul, username, url, tgl_posting } = req.body;
+  const { judul, username, url } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -47,7 +49,15 @@ export const CreateIklanTengah = async (req, res) => {
 export const GetAllIklanTengah = async (req, res) => {
   try {
     const response = await IklanTengah.findAll({
-      attributes: ["id", "judul", "username", "url", "gambar", "url_gambar", "tgl_posting"],
+      attributes: [
+        "id",
+        "judul",
+        "username",
+        "url",
+        "gambar",
+        "url_gambar",
+        "tgl_posting",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -77,9 +87,13 @@ export const UpdateIklanTengah = async (req, res) => {
     },
   });
 
-  if (!iklanTengah) return res.status(404).json({ msg: "Iklan Tengah tidak ditemukan" });
+  if (!iklanTengah)
+    return res.status(404).json({ msg: "Iklan Tengah tidak ditemukan" });
 
-  const { judul, username, url, tgl_posting } = req.body;
+  const { judul, username, url } = req.body;
+
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  
   let fileName = iklanTengah.gambar;
 
   if (req.files) {
@@ -142,7 +156,8 @@ export const DeleteIklanTengah = async (req, res) => {
       },
     });
 
-    if (!iklanTengah) return res.status(404).json({ msg: "Iklan Tengah tidak ditemukan" });
+    if (!iklanTengah)
+      return res.status(404).json({ msg: "Iklan Tengah tidak ditemukan" });
 
     const filepath = `./public/images/${iklanTengah.gambar}`;
     if (fs.existsSync(filepath)) {
