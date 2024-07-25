@@ -6,13 +6,15 @@ import {
   updateTemplates,
   deleteTemplates,
 } from "../controller/TamplatesController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.get("/templates", getTemplates);
-router.get("/templates/:id", getTemplatesById);
-router.post("/templates", createTemplates);
-router.patch("/templates/:id", updateTemplates);
-router.delete("/templates/:id", deleteTemplates);
+router.get("/templates", verifyToken, checkBlacklist, getTemplates);
+router.get("/templates/:id", verifyToken, checkBlacklist, getTemplatesById);
+router.post("/templates", verifyToken, checkBlacklist, createTemplates);
+router.patch("/templates/:id", verifyToken, checkBlacklist, updateTemplates);
+router.delete("/templates/:id", verifyToken, checkBlacklist, deleteTemplates);
 
 export default router;

@@ -6,13 +6,15 @@ import {
   UpdateDownload,
   DeleteDownload,
 } from "../controller/DownloadController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.post("/download", CreateDownload);
-router.get("/download", GetAllDownloads);
-router.get("/download/:id", GetDownloadById);
-router.put("/download/:id", UpdateDownload);
-router.delete("/download/:id", DeleteDownload);
+router.post("/download", verifyToken, checkBlacklist, CreateDownload);
+router.get("/download", verifyToken, checkBlacklist, GetAllDownloads);
+router.get("/download/:id", verifyToken, checkBlacklist, GetDownloadById);
+router.put("/download/:id", verifyToken, checkBlacklist, UpdateDownload);
+router.delete("/download/:id", verifyToken, checkBlacklist, DeleteDownload);
 
 export default router;

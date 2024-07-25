@@ -6,13 +6,15 @@ import {
   UpdateLogo,
   DeleteLogo,
 } from "../controller/LogoController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.post("/logo", CreateLogo);
-router.get("/logo", GetAllLogo);
-router.get("/logo/:id", GetLogoById);
-router.put("/logo/:id", UpdateLogo);
-router.delete("/logo/:id", DeleteLogo);
+router.post("/logo", verifyToken, checkBlacklist, CreateLogo);
+router.get("/logo", verifyToken, checkBlacklist, GetAllLogo);
+router.get("/logo/:id", verifyToken, checkBlacklist, GetLogoById);
+router.put("/logo/:id", verifyToken, checkBlacklist, UpdateLogo);
+router.delete("/logo/:id", verifyToken, checkBlacklist, DeleteLogo);
 
 export default router;

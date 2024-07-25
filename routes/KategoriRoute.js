@@ -6,13 +6,15 @@ import {
   UpdateKategori,
   DeleteKategori,
 } from "../controller/KategoriController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.post("/kategori", CreateKategori);
-router.get("/kategori", GetAllKategori);
-router.get("/kategori/:id", GetKategoriById);
-router.put("/kategori/:id", UpdateKategori);
-router.delete("/kategori/:id", DeleteKategori);
+router.post("/kategori", verifyToken, checkBlacklist, CreateKategori);
+router.get("/kategori", verifyToken, checkBlacklist, GetAllKategori);
+router.get("/kategori/:id", verifyToken, checkBlacklist, GetKategoriById);
+router.put("/kategori/:id", verifyToken, checkBlacklist, UpdateKategori);
+router.delete("/kategori/:id", verifyToken, checkBlacklist, DeleteKategori);
 
 export default router;

@@ -6,13 +6,15 @@ import {
   UpdateHubungi,
   DeleteHubungi,
 } from "../controller/HubungiController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.post("/hubungi", CreateHubungi);
-router.get("/hubungi", GetAllHubungi);
-router.get("/hubungi/:id", GetHubungiById);
-router.put("/hubungi/:id", UpdateHubungi);
-router.delete("/hubungi/:id", DeleteHubungi);
+router.post("/hubungi", verifyToken, checkBlacklist, CreateHubungi);
+router.get("/hubungi", verifyToken, checkBlacklist, GetAllHubungi);
+router.get("/hubungi/:id", verifyToken, checkBlacklist, GetHubungiById);
+router.put("/hubungi/:id", verifyToken, checkBlacklist, UpdateHubungi);
+router.delete("/hubungi/:id", verifyToken, checkBlacklist, DeleteHubungi);
 
 export default router;

@@ -6,13 +6,15 @@ import {
   updateComments,
   deleteComments,
 } from "../controller/CommentController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.get("/comments", getComments);
-router.get("/comments/:id", getCommentsById);
-router.post("/comments", createComments);
-router.patch("/comments/:id", updateComments);
-router.delete("/comments/:id", deleteComments);
+router.get("/comments", verifyToken, checkBlacklist, getComments);
+router.get("/comments/:id", verifyToken, checkBlacklist, getCommentsById);
+router.post("/comments", verifyToken, checkBlacklist, createComments);
+router.patch("/comments/:id", verifyToken, checkBlacklist, updateComments);
+router.delete("/comments/:id", verifyToken, checkBlacklist, deleteComments);
 
 export default router;

@@ -6,13 +6,15 @@ import {
   UpdateModAlamat,
   DeleteModAlamat,
 } from "../controller/ModAlamatController.js";
+import verifyToken from "../middleware/token.js";
+import { checkBlacklist } from "../middleware/Blacklist.js";
 
 const router = express.Router();
 
-router.post("/alamat", CreateModAlamat);
-router.get("/alamat", GetAllModAlamat);
-router.get("/alamat/:id", GetModAlamatById);
-router.put("/alamat/:id", UpdateModAlamat);
-router.delete("/alamat/:id", DeleteModAlamat);
+router.post("/alamat", verifyToken, checkBlacklist, CreateModAlamat);
+router.get("/alamat", verifyToken, checkBlacklist, GetAllModAlamat);
+router.get("/alamat/:id", verifyToken, checkBlacklist, GetModAlamatById);
+router.put("/alamat/:id", verifyToken, checkBlacklist, UpdateModAlamat);
+router.delete("/alamat/:id", verifyToken, checkBlacklist, DeleteModAlamat);
 
 export default router;
