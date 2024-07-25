@@ -10,13 +10,14 @@ export const CreateAgenda = async (req, res) => {
     isi_agenda,
     tempat,
     pengirim,
-    tgl_mulai,
-    tgl_selesai,
-    tgl_posting,
     jam,
     dibaca,
-    username
+    username,
   } = req.body;
+
+  const tgl_mulai = new Date().toISOString().split("T")[0];
+  const tgl_posting = new Date().toISOString().split("T")[0];
+  const tgl_selesai = new Date().toISOString().split("T")[0];
 
   if (!req.files || !req.files.file) {
     return res.status(422).json({ msg: "Harus memasukkan foto" });
@@ -53,7 +54,7 @@ export const CreateAgenda = async (req, res) => {
         url: url,
         jam: jam,
         dibaca: dibaca,
-        username: username
+        username: username,
       });
       res.status(201).json({ msg: "Agenda berhasil dibuat" });
     } catch (error) {
@@ -66,7 +67,21 @@ export const CreateAgenda = async (req, res) => {
 export const GetAllAgenda = async (req, res) => {
   try {
     const response = await Agenda.findAll({
-      attributes: ["tema", "tema_seo", "isi_agenda", "tempat", "pengirim", "tgl_mulai", "tgl_selesai", "tgl_posting", "gambar", "url", "jam", "dibaca", "username"],
+      attributes: [
+        "tema",
+        "tema_seo",
+        "isi_agenda",
+        "tempat",
+        "pengirim",
+        "tgl_mulai",
+        "tgl_selesai",
+        "tgl_posting",
+        "gambar",
+        "url",
+        "jam",
+        "dibaca",
+        "username",
+      ],
     });
     res.status(200).json(response);
   } catch (error) {
@@ -100,7 +115,19 @@ export const UpdateAgenda = async (req, res) => {
   if (!agenda) return res.status(404).json({ msg: "Agenda tidak ditemukan" });
 
   // Mengambil data dari body request
-  const { tema, tema_seo, isi_agenda, tempat, pengirim, tgl_mulai, tgl_selesai, tgl_posting, jam, dibaca, username } = req.body;
+  const {
+    tema,
+    tema_seo,
+    isi_agenda,
+    tempat,
+    pengirim,
+    tgl_mulai,
+    tgl_selesai,
+    tgl_posting,
+    jam,
+    dibaca,
+    username,
+  } = req.body;
   let fileName = agenda.gambar; // Inisialisasi nama file dengan gambar yang ada
 
   if (req.files) {
@@ -151,7 +178,7 @@ export const UpdateAgenda = async (req, res) => {
         url: url,
         jam: jam,
         dibaca: dibaca,
-        username: username
+        username: username,
       },
       {
         where: {
