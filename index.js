@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import UserRoute from "./routes/UserRoute.js";
 import AdministatrosRoute from "./routes/AdministatrosRoute.js";
 import HalamanStatisRoute from "./routes/HalamanStatisRoute.js";
-import TamplatesRoute from "./routes/TamplatesRoute.js";
+import TemplatesRoute from "./routes/TemplatesRoute.js";
 import CommentRoute from "./routes/CommentRoute.js";
 import AgendaRoute from "./routes/AgendaRoute.js";
 import AlbumRoute from "./routes/AlbumRoute.js";
@@ -74,7 +74,7 @@ app.use(express.static("public/images/user"));
 
 // Kumpulan route berdasarkan abjad
 app.use(AdministatrosRoute);
-app.use(TamplatesRoute);
+app.use(TemplatesRoute);
 app.use(AgendaRoute);
 app.use(AlbumRoute);
 app.use(BackgroundRoute);
