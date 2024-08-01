@@ -14,7 +14,10 @@ import AgendaRoute from "./routes/AgendaRoute.js";
 import AlbumRoute from "./routes/AlbumRoute.js";
 import BackgroundRoute from "./routes/BackgroundRoute.js";
 import BannerRoute from "./routes/BannerRoute.js";
+import BeritaRoute from "./routes/BeritaRoute.js";
 import DownloadRoute from "./routes/DownloadRoute.js";
+import GalleryRoute from "./routes/GalleryRoute.js";
+import GrafikLulusanRoute from "./routes/GrafikLulusanRoute.js";
 import HeaderRoute from "./routes/HeaderRoute.js";
 import HubungiRoute from "./routes/HubungiRoute.js";
 import IdentitasRoute from "./routes/IdentitasRoute.js";
@@ -22,6 +25,7 @@ import IklanAtasRoute from "./routes/IklanAtasRoute.js";
 import IklanTengahRoute from "./routes/IklanTengahRoute.js";
 import KataJelekRoute from "./routes/KataJelekRoute.js";
 import KategoriRoute from "./routes/KategoriRoute.js";
+import KomentarRoute from "./routes/KomentarRoute.js";
 import LinkTerkaitRoute from "./routes/LinkTerkaitRoute.js";
 import LogoRoute from "./routes/LogoRoute.js";
 import ModulRoute from "./routes/ModulRoute.js";
@@ -32,6 +36,7 @@ import PengumumanRoute from "./routes/PengumumanRoute.js";
 import PlaylistRoute from "./routes/PlaylistRoute.js";
 import PollingRoute from "./routes/PollingRoute.js";
 import cookieParser from "cookie-parser";
+import Berita from "./models/BeritaModel.js";
 dotenv.config(); // Memuat variabel lingkungan dari file .env
 
 const app = express(); // Membuat aplikasi Express
@@ -42,9 +47,9 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 // Jangan lupa kalo ga dipake dikasih komentar, ini buat bikin tabel
-(async () => {
-  await db.sync();
-})(); 
+// (async () => {
+//   await db.sync();
+// })(); 
 
 app.use(
   session({
@@ -79,8 +84,11 @@ app.use(AgendaRoute);
 app.use(AlbumRoute);
 app.use(BackgroundRoute);
 app.use(BannerRoute);
+app.use(BeritaRoute);
 app.use(CommentRoute);
 app.use(DownloadRoute); 
+app.use(GalleryRoute); 
+app.use(GrafikLulusanRoute); 
 app.use(HalamanStatisRoute);
 app.use(HeaderRoute);
 app.use(HubungiRoute);
@@ -89,6 +97,7 @@ app.use(IklanAtasRoute);
 app.use(IklanTengahRoute);
 app.use(KataJelekRoute);
 app.use(KategoriRoute);
+app.use(KomentarRoute);
 app.use(LinkTerkaitRoute);
 app.use(LogoRoute);
 app.use(ModulRoute);
