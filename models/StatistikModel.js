@@ -6,6 +6,11 @@ const { DataTypes } = Sequelize;
 const Statistik = db.define(
   "statistik",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     ip: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -15,7 +20,7 @@ const Statistik = db.define(
       },
     },
     tanggal: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     hits: {
