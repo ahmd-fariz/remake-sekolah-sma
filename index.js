@@ -49,9 +49,9 @@ const store = new sessionStore({
   db: db, // Menghubungkan session store dengan database
 });
 // Jangan lupa kalo ga dipake dikasih komentar, ini buat bikin tabel
-// (async () => {
-//   await db.sync();
-// })(); 
+(async () => {
+  await db.sync();
+})(); 
 
 app.use(
   session({

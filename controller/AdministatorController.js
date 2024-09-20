@@ -2,7 +2,6 @@ import argon2 from "argon2";
 import Users from "../models/UsersModel.js";
 import jwt from "jsonwebtoken";
 import Blacklist from "../models/BlacklistModel.js";
-// Test paras
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
